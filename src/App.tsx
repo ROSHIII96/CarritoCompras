@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import { PRODUCTS, type Product } from './data/products'
 
-// ─────────────────────────────────────────────────────────────────
-// [HOISTING] Las declaraciones de función se elevan al inicio del
+// HOISTING Las declaraciones de función se elevan al inicio del
 // scope. formatCurrency() se usa en línea 10 pero se declara en
 // línea 20 — funciona porque JS la "hoist" antes de ejecutar.
-// ─────────────────────────────────────────────────────────────────
-const _test = formatCurrency(0) // llamada antes de la declaración ✅
+
+const _test = formatCurrency(0) // llamada antes de la declaración 
 void _test
 
 // [HOISTING] Declaración de función — JS la eleva completa al scope
@@ -18,13 +17,13 @@ function formatCurrency(amount: number): string {
   }).format(amount)
 }
 
-// ── Types ──────────────────────────────────────────────────────────
+// Types 
 interface CartItem extends Product {
   qty: number
 }
 
-// ─────────────────────────────────────────────────────────────────
-// [CLOSURE] createCartManager devuelve métodos que "cierran sobre"
+// 
+// CLOSURE createCartManager devuelve métodos que "cierran sobre"
 // la variable `items`. Es inaccesible desde fuera: nadie puede
 // hacer cartManager.items — solo puede interactuar a través de
 // los métodos retornados. Esto es el patrón Module via Closure.
@@ -32,15 +31,15 @@ interface CartItem extends Product {
 // [SCOPE] `items` vive en el scope de la función createCartManager.
 // Cada llamada a createCartManager() crea un scope independiente,
 // por eso un segundo carrito tendría su propio `items` separado.
-// ─────────────────────────────────────────────────────────────────
+
 function createCartManager() {
-  // [SCOPE] Variable privada — solo existe dentro de este scope
-  // [CLOSURE] Los métodos retornados "recuerdan" este `items`
+  // SCOPE Variable privada — solo existe dentro de este scope
+  // CLOSURE Los métodos retornados "recuerdan" este `items`
   let items: CartItem[] = []
 
   return {
     add(product: Product): CartItem[] {
-      // [CLOSURE] Accedemos a `items` del scope exterior ↑
+      // CLOSURE Accedemos a `items` del scope exterior ↑
       const existing = items.find((i) => i.id === product.id)
       if (existing) {
         items = items.map((i) =>
@@ -53,7 +52,7 @@ function createCartManager() {
     },
 
     remove(id: number): CartItem[] {
-      // [CLOSURE] Mutamos `items` privado y devolvemos copia
+      // CLOSURE Mutamos `items` privado y devolvemos copia
       items = items
         .map((i) => (i.id === id ? { ...i, qty: i.qty - 1 } : i))
         .filter((i) => i.qty > 0)
@@ -66,19 +65,19 @@ function createCartManager() {
     },
 
     getCount(): number {
-      // [CLOSURE] Lectura de `items` sin exponerlo directamente
+      // CLOSURE Lectura de `items` sin exponerlo directamente
       return items.reduce((sum, i) => sum + i.qty, 0)
     },
   }
 }
 
-// [CLOSURE] Instancia singleton — el closure se crea una sola vez
+// CLOSURE Instancia singleton — el closure se crea una sola vez
 // y mantiene su estado privado durante toda la vida de la app.
 const cartManager = createCartManager()
 
-// ── Componente principal ───────────────────────────────────────────
+//  Componente principal 
 export default function App() {
-  // [SCOPE] Variables de estado con scope de bloque (let interno de useState)
+  // SCOPE Variables de estado con scope de bloque (let interno de useState)
   const [cartItems, setCartItems] = useState<CartItem[]>([])
   const [isCartOpen, setIsCartOpen] = useState(false)
 
@@ -86,8 +85,8 @@ export default function App() {
   const totalItems = cartItems.reduce((sum, i) => sum + i.qty, 0)
   const totalPrice = cartItems.reduce((sum, i) => sum + i.price * i.qty, 0)
 
-  // ── Handlers ──────────────────────────────────────────────────────
-  // [CLOSURE] Cada handler cierra sobre `setCartItems` y `cartManager`
+  //  Handlers 
+  // CLOSURE Cada handler cierra sobre `setCartItems` y `cartManager`
   // del scope del componente — los "recuerda" sin recibirlos por param.
   function handleAdd(product: Product) {
     setCartItems(cartManager.add(product))
@@ -102,11 +101,11 @@ export default function App() {
     setIsCartOpen(false)
   }
 
-  // ── Render ────────────────────────────────────────────────────────
+  // ── Render 
   return (
     <div className="min-h-screen bg-slate-50">
 
-      {/* ── Navbar ────────────────────────────────────────────────── */}
+      {/* Navbar  */}
       <header className="bg-brand-500 text-white px-6 py-4 sticky top-0 z-40 shadow-lg">
         <div className="max-w-6xl mx-auto flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -120,7 +119,7 @@ export default function App() {
           >
             <span>🛒</span>
             <span>Carrito</span>
-            {/* [SCOPE] totalItems está en el scope del componente */}
+            {/* SCOPE totalItems está en el scope del componente */}
             {totalItems > 0 && (
               <span className="absolute -top-2 -right-2 bg-rose-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                 {totalItems}
@@ -130,18 +129,18 @@ export default function App() {
         </div>
       </header>
 
-      {/* ── Catálogo de productos ──────────────────────────────────── */}
+      {/*  Catálogo de productos  */}
       <main className="max-w-6xl mx-auto px-4 py-10">
         <div className="mb-8">
           <h2 className="text-3xl font-bold text-slate-800">Catálogo</h2>
-          <p className="text-slate-500 mt-1 text-sm">
+          <p className=" text-slate-500 mt-1 text-sm">
             {PRODUCTS.length} productos disponibles
           </p>
         </div>
 
-        {/* [SCOPE] `product` e `inCart` tienen scope de bloque por
+        {/* SCOPE `product` e `inCart` tienen scope de bloque por
             iteración — cada tarjeta tiene sus propias variables. */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {PRODUCTS.map((product) => {
             const inCart = cartItems.find((i) => i.id === product.id)
 
@@ -151,7 +150,7 @@ export default function App() {
                 className="bg-white rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow p-6 flex flex-col"
               >
                 {/* Imagen del producto — con emoji como fallback */}
-                <div className="rounded-xl overflow-hidden mb-4 bg-brand-50 h-40 flex items-center justify-center">
+                <div className="hover:scale-110 rounded-xl overflow-hidden mb-4 bg-brand-50 h-40 flex items-center justify-center">
                   <img
                     src={product.image}
                     alt={product.name}
@@ -216,7 +215,7 @@ export default function App() {
         </div>
       </main>
 
-      {/* ── Panel del carrito (sidebar) ────────────────────────────── */}
+      {/*  Panel del carrito (sidebar) */}
       {isCartOpen && (
         // [SCOPE] `isCartOpen` viene del scope del componente App
         <div className="fixed inset-0 z-50 flex justify-end">
