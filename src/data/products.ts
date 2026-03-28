@@ -27,7 +27,7 @@ export const PRODUCTS: Product[] = [
     price: 469000,
     emoji: '💻',
     category: 'Laptops',
-    image: '/images/macbook-air-m2.jpg',
+    image: 'https://cr.tiendasishop.com/cdn/shop/files/IMG-5577520_6b8ebc93-9195-47b0-9bb3-77bffd33dcd5.jpg?v=1734627576&width=823',
   },
   {
     id: 2,
@@ -36,7 +36,7 @@ export const PRODUCTS: Product[] = [
     price: 52000,
     emoji: '🖱️',
     category: 'Periféricos',
-    image: '/images/logitech-mx-master-3s.jpg',
+    image: 'https://extremetechcr.com/wp-content/uploads/2024/11/22248.jpg',
   },
   {
     id: 3,
@@ -45,7 +45,7 @@ export const PRODUCTS: Product[] = [
     price: 72000,
     emoji: '⌨️',
     category: 'Periféricos',
-    image: '/images/corsair-k70-rgb-pro.jpg',
+    image: 'https://holacompras.com/wp-content/uploads/2021/06/CH-9109014-SP-Prod.jpg',
   },
   {
     id: 4,
@@ -54,7 +54,7 @@ export const PRODUCTS: Product[] = [
     price: 215000,
     emoji: '🖥️',
     category: 'Monitores',
-    image: '/images/lg-27uk850-w.jpg',
+    image: 'https://www.coolmod.com/images/product/large/lg-27ul650-w-gaming-27-4k-freesync-monitor-001.jpg',
   },
   {
     id: 5,
@@ -63,7 +63,7 @@ export const PRODUCTS: Product[] = [
     price: 162000,
     emoji: '🎧',
     category: 'Audio',
-    image: '/images/sony-wh-1000xm5.jpg',
+    image: 'https://sony.scene7.com/is/image/sonyglobalsolutions/360-RA-category-icon-20221202?$S7Product$&fmt=png-alpha',
   },
   {
     id: 6,
@@ -72,6 +72,6 @@ export const PRODUCTS: Product[] = [
     price: 48000,
     emoji: '📷',
     category: 'Cámaras',
-    image: '/images/logitech-c920s.jpg',
+    image: 'https://media.4rgos.it/i/Argos/3118607_R_Z001A?w=500&h=300',
   },
 ]
